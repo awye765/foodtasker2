@@ -78,6 +78,13 @@ def restaurant_edit_meal(request, meal_id):
 # Restaurant order
 @login_required(login_url='/restaurant/sign-in/')
 def restaurant_order(request):
+    if request.method == "POST":
+        order = Order.objects.get(id = request.POST["id"], restaurant=request.user.restaurant)
+
+        if order.status == Order.COOKING:
+            order.status = Order.READY
+            order.save()
+
     orders = Order.objects.filter(restaurant = request.user.restaurant).order_by("-id")
     return render(request, 'restaurant/order.html', {"orders": orders})
 
