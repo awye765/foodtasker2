@@ -57,11 +57,11 @@ The mobile app delivers the following features for the below fictional user stor
 - JavaScript
 - AJAX
 
+##### Versions
+- See requirements.txt
+
 #### Testing
 - :construction:
 
 #### Test Analytics
 - :construction:
-
-## <a name="approach">Approach
-
