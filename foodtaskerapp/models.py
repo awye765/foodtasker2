@@ -67,7 +67,7 @@ class Order(models.Model):
         return str(self.id)
 
 class OrderDetail(models.Model):
-    order = models.ForeignKey(Order, related_name='order_details')
+    order = models.ForeignKey(Order, related_name='order_detail')
     meal = models.ForeignKey(Meal)
     quantity = models.IntegerField()
     subtotal = models.IntegerField()

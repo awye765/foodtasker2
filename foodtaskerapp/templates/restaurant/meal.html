@@ -22,7 +22,7 @@
               <th class="text-center"></th>
         </tr>
       </thead>
-      <body>
+      <tbody>
           {% for meal in meals %}
             <tr>
                 <td scope="row">{{ meal.id }}</td>
@@ -33,6 +33,6 @@
                     src="{{ MEDIA_URL }}{{ meal.image }}" width="50" height="50"></td>
             </tr>
           {% endfor %}
-      </body>
+      </tbody>
     </table>
 {% endblock %}
