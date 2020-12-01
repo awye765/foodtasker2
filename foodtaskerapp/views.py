@@ -33,6 +33,7 @@ def restaurant_account(request):
         "restaurant_form": restaurant_form
     })
 
+# Restaurant meals list
 @login_required(login_url='/restaurant/sign-in/')
 def restaurant_meal(request):
     meals = Meal.objects.filter(restaurant = request.user.restaurant).order_by("-id")
@@ -40,6 +41,7 @@ def restaurant_meal(request):
         "meals": meals
     })
 
+# Restaurant add meal
 @login_required(login_url='/restaurant/sign-in/')
 def restaurant_add_meal(request):
     form = MealForm()
@@ -57,14 +59,33 @@ def restaurant_add_meal(request):
         "form": form
     })
 
+# Restaurant edit meal
+@login_required(login_url='/restaurant/sign-in/')
+def restaurant_edit_meal(request, meal_id):
+    form = MealForm(instance = Meal.objects.get(id = meal_id))
+
+    if request.method == "POST":
+        form = MealForm(request.POST, request.FILES, instance = Meal.objects.get(id = meal_id))
+
+        if form.is_valid():
+            form.save()
+            return redirect(restaurant_meal)
+
+    return render(request, 'restaurant/edit_meal.html', {
+        "form": form
+    })
+
+# Restaurant order
 @login_required(login_url='/restaurant/sign-in/')
 def restaurant_order(request):
     return render(request, 'restaurant/order.html', {})
 
+# Restaurant report
 @login_required(login_url='/restaurant/sign-in/')
 def restaurant_report(request):
     return render(request, 'restaurant/report.html', {})
 
+# Restaurant sign-up
 def restaurant_sign_up(request):
     user_form = UserForm()
     restaurant_form = RestaurantForm()
