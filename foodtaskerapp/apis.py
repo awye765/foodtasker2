@@ -158,11 +158,26 @@ def driver_pick_order(request):
 
     return JsonResponse({})
 
+# GET params: access_token
 def driver_get_the_latest_order(request):
-    return JsonResponse({})
+    # Get token
+    access_token = AccessToken.objects.get(token = request.GET.get("access_token"),
+        expires__gt = timezone.now())
+
+    # Get Driver
+    driver = access_token.user.driver
+
+    # Get Order
+    order = OrderSerializer(
+        Order.objects.filter(driver = driver).order_by("picked_at").last()
+    ).data
+
+    return JsonResponse({"order": order})
 
 def driver_complete_order(request):
+
     return JsonResponse({})
 
 def driver_get_revenue(request):
+
     return JsonResponse({})
