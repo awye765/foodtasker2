@@ -24,9 +24,9 @@
                         <tr>
                             <td scope="row">{{ order.id }}</td>
                             <td>
-                              {% for od in order.order_details.all %}
-                                  {{ od.meal.name }} {{ od.meal.price }}
-                                  x {{ od.quantity }} = ${{ od.sub_total }}
+                              {% for order_detail in order.order_detail.all %}
+                                  {{ order_detail.meal.name }} {{ order_detail.meal.price }}
+                                  x {{ order_detail.quantity }} = ${{ order_detail.subtotal }}
                               {% endfor %}
                             </td>
                             <td>{{ order.customer }}</td>
