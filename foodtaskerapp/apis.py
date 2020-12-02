@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from oauth2_provider.models import AccessToken
 
 from foodtaskerapp.models import Restaurant, Meal, Order, OrderDetail
-from foodtaskerapp.serializers import RestaurantSerializer, MealSerializer,
+from foodtaskerapp.serializers import RestaurantSerializer, MealSerializer, OrderSerializer
 
 ##############
 # CUSTOMERS
@@ -117,7 +117,12 @@ def restaurant_order_notification(request, last_request_time):
 ##############
 
 def driver_get_ready_orders(request):
-    return JsonResponse({})
+    orders = OrderSerializer(
+        Order.objects.filter(status = Order.READY, driver = None).order_by("-id"),
+        many = True
+    ).data
+
+    return JsonResponse({"orders": orders})
 
 def driver_pick_order(request):
     return JsonResponse({})
