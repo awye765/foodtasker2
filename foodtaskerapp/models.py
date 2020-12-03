@@ -28,7 +28,7 @@ class Driver(models.Model):
     phone = models.CharField(max_length=500, blank=True)
     address = models.CharField(max_length=500, blank=True)
     location = models.CharField(max_length=500, blank=True)
-    
+
     def __str__(self):
         return self.user.get_full_name()
 
@@ -64,8 +64,9 @@ class Order(models.Model):
     created_at = models.DateTimeField(default = timezone.now)
     picked_at = models.DateTimeField(blank = True, null = True)
 
-    def __str__ (self):
+    def __str__(self):
         return str(self.id)
+
 
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order, related_name='order_detail')
@@ -73,5 +74,5 @@ class OrderDetail(models.Model):
     quantity = models.IntegerField()
     subtotal = models.IntegerField()
 
-    def __str__ (self):
+    def __str__(self):
         return str(self.id)
